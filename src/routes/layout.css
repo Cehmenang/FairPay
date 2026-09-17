@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Momo+Trust+Display&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --color-primary: #F4F1FE;
+    --color-secondary: #FFFFFF;
+    --color-third: #2B2440;
+    --color-fourth: #8778F0;
+
+    --font-inter: 'Inter', 'sans-serif';
+    --font-momo: 'Momo Trust Display', 'sans-serif';
+}
+
+@keyframes hue-cycle {
+  from {
+    filter: blur(2px);
+  }
+  to {
+    filter: blur(2px);
+  }
+}
+
+.animate-hue {
+  animation: hue-cycle 8s linear infinite;
+}
