@@ -16,25 +16,25 @@
   let animated = false;
 
   const cards = [
-    {
-      id: "scan",
-      bg: "bg-fourth",
-      text: "text-primary",
-      title: "Scan the receipt, split instantly for everyone.",
-    },
-    {
-      id: "ghost",
-      bg: "bg-[#1E1B2E]",
-      text: "text-white",
-      title: "See who owes what, tracked in real time.",
-    },
-    {
-      id: "settle",
-      bg: "bg-[#EFECFB]",
-      text: "text-third",
-      title: "Good records, for a fair split.",
-    },
-  ];
+  {
+    id: "scan",
+    bg: "bg-fourth",
+    text: "text-primary",
+    title: "Scan struk, langsung terbagi untuk semua orang.",
+  },
+  {
+    id: "ghost",
+    bg: "bg-[#1E1B2E]",
+    text: "text-white",
+    title: "Lihat siapa berutang apa, terlacak secara real-time.",
+  },
+  {
+    id: "settle",
+    bg: "bg-[#EFECFB]",
+    text: "text-third",
+    title: "Catatan rapi, untuk pembagian yang adil.",
+  },
+];
 
   function scrollByCard(dir: 1 | -1) {
     if (!trackEl) return;
@@ -75,7 +75,7 @@
     <div class="mb-6 flex items-center justify-between">
       <div class="flex items-center gap-2 rounded-full bg-white px-5 py-2.5">
         <Split size={18} class="text-third" />
-        <span class="text-sm font-medium text-third sm:text-base">Why FairPay</span>
+        <span class="text-sm font-medium text-third sm:text-base">Kenapa FairPay?</span>
       </div>
 
       <div class="hidden items-center gap-2 sm:flex">
@@ -120,7 +120,7 @@
           </div>
           <div class="mt-8">
             <p class="text-4xl font-bold text-white">$42.50</p>
-            <p class="mt-1 text-xs text-white/50">3 items detected</p>
+            <p class="mt-1 text-xs text-white/50">Terdeteksi 3 Barang</p>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@
     import ReceiptScanner from '../../../components/bills/add/ReceiptScanner.svelte';
     import ParticipantPicker from '../../../components/bills/add/ParticipantPicker.svelte';
     import ItemSplitStep from '../../../components/bills/add/ItemSplitStep.svelte';
+    import TopMenu from '../../../components/bills/TopMenu.svelte';
 
     const steps = [
         { label: 'Item Bill', icon: ReceiptText },
@@ -121,7 +122,7 @@
 
 <div class="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-6 sm:px-8 sm:py-10">
     <!-- Header -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 pt-18">
         <a
             href="/bills"
             aria-label="Kembali"

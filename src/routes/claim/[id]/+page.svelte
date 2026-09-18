@@ -58,35 +58,34 @@
     let selectedMethod = $state<string | null>(null);
 
     const paymentMethods = [
-        { id: 'transfer_bank', label: 'Transfer Bank' },
-        { id: 'qris', label: 'QRIS' },
-        { id: 'e_wallet', label: 'E-Wallet (OVO / GoPay / DANA)' }
+        { id: 'TRANSFER_BANK', label: 'Transfer Bank' },
+        { id: 'QRIS', label: 'QRIS' },
+        { id: 'E_WALLET', label: 'E-Wallet (OVO / GoPay / DANA)' }
     ];
 
     async function submitPayment() {
-        if (!bill || !participant || !selectedMethod) return;
-        submitting = true;
-        try {
-            const res = await fetch(
-                `/api/bills/claim/${bill.shareToken}/participant/${participant.id}`,
-                {
-                    method: 'GET',
-                    // headers: { 'Content-Type': 'application/json' },
-                    // body: JSON.stringify({ paymentMethod: selectedMethod })
-                }
-            );
-            if (res.ok) {
-                showPaymentOptions = false;
-                selectedMethod = null;
-
-                await loadBill();
+    if (!bill || !participant || !selectedMethod) return;
+    submitting = true;
+    try {
+        const res = await fetch(
+            `/api/bills/claim/${bill.shareToken}/participant/${participant.id}`,
+            {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ paymentMethod: selectedMethod })
             }
-        } catch (err) {
-            console.error('[submitPayment] failed:', err);
-        } finally {
-            submitting = false;
+        );
+        if (res.ok) {
+            showPaymentOptions = false;
+            selectedMethod = null;
+            await loadBill();
         }
+    } catch (err) {
+        console.error('[submitPayment] failed:', err);
+    } finally {
+        submitting = false;
     }
+}
 
     // --- GSAP ---
     let cardEl: HTMLDivElement;

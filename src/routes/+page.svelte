@@ -100,11 +100,11 @@
     </h1>
 
     <p
-      bind:this={subEl}
-      class="max-w-xl text-[clamp(16px,3.5vw,32px)] leading-snug"
+	  bind:this={subEl}
+	  class="max-w-xl text-[clamp(16px,3.5vw,32px)] leading-snug"
     >
-      Split smarter. Pay exactly what you
-      <span class="font-bold italic">owe.</span>
+	  Bagi lebih pintar. Bayar
+	  <span class="font-bold italic">sesuai porsimu.</span>
     </p>
 
     <a
@@ -112,7 +112,7 @@
       href="/login"
       class="rounded-full bg-fourth px-8 py-2.5 font-momo text-[clamp(16px,2.5vw,20px)] text-primary transition-transform hover:scale-105 sm:px-10 sm:py-3"
     >
-      Try for free!
+      Coba Gratis!
     </a>
   </div>
 </div>

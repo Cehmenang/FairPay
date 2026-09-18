@@ -93,7 +93,7 @@
 					? 'bg-fourth/10 text-fourth'
 					: 'text-third/60 hover:bg-third/5 hover:text-third'}"
 			>
-				How to use
+        Cara Pakai
 			</a>
 
 			{#if isLoggedIn}
@@ -109,7 +109,7 @@
 					href="/login"
 					class="rounded-full bg-fourth px-4 py-2 font-inter text-sm font-medium text-secondary transition-colors hover:bg-fourth/90 {focusRing}"
 				>
-					Try for free
+					Coba Gratis
 				</a>
 			{/if}
 		</div>
@@ -143,7 +143,7 @@
 					: 'text-third hover:bg-third/5'}"
 				onclick={() => (mobileOpen = false)}
 			>
-				How to use
+				Cara Pakai
 				<MousePointer2 size={18} class="hidden opacity-60 group-hover:block" />
 			</a>
 

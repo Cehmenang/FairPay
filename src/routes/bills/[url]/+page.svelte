@@ -4,7 +4,8 @@
     import gsap from 'gsap';
     import { getBillSubtotal, getBillTotal, getInitial, getParticipantStatus, type Bill, type Participant } from '$lib/types/bill';
     import { formatCurrency, formatDate } from '$lib/data/mockBills';
-    import { BadgeCheck, Check, CircleAlert, Clock } from 'lucide-svelte';
+    import { Check, CircleAlert, Clock } from 'lucide-svelte';
+    import TopMenu from '../../../components/bills/TopMenu.svelte';
 
     let bill = $state<Bill | null>(null);
     let loading = $state(true);
@@ -188,6 +189,11 @@ async function copyLink(p: Participant) {
     </div>
 {:else if bill}
     <main class="mx-auto max-w-5xl px-4 py-6 sm:px-8 space-y-6 pt-24 md:pt-30">
+        
+        <div bind:this={headerEl} class="flex flex-col gap-4">
+		<h1 class="font-momo text-3xl text-third sm:text-4xl">Bills</h1>
+		    <TopMenu />
+	    </div>
         <!-- Header -->
         <div bind:this={headerEl} class="rounded-3xl bg-third p-6 text-white sm:p-8 space-y-2">
             <span class="text-xs text-white/60">
@@ -221,21 +227,27 @@ async function copyLink(p: Participant) {
                                     {/if}
                                 </div>
                                 <div>
-                                    <h2 class="text-base font-bold text-third">{p.contact.name}</h2>
-                                    {#if status === 'completed'}
-                                        <p class="text-xs text-gray-400">
-                                            Dibayar pada {formatDate(p.paidAt!)}
-                                        </p>
-                                    {:else if status === 'pending'}
-                                        <p class="text-xs text-indigo-900">
-                                            Klaim pada {formatDate(p.claimedAt!)}
-                                        </p>
-                                    {:else}
-                                        <p class="text-xs text-amber-700">
-                                            Belum diselesaikan
-                                        </p>
-                                    {/if}
-                                </div>
+    <h2 class="text-base font-bold text-third">{p.contact.name}</h2>
+    {#if status === 'completed'}
+        <p class="text-xs text-gray-400">
+            Dibayar pada {formatDate(p.paidAt!)}
+        </p>
+    {:else if status === 'pending'}
+        <p class="text-xs text-indigo-900">
+            Klaim pada {formatDate(p.claimedAt!)}
+        </p>
+    {:else}
+        <p class="text-xs text-amber-700">
+            Belum diselesaikan
+        </p>
+    {/if}
+
+    {#if p.claimedAt && p.paymentMethod}
+        <p class="text-xs text-gray-500">
+            Metode: <span class="font-medium text-third">{p.paymentMethod}</span>
+        </p>
+    {/if}
+</div>                          
                             </div>
                             <div class="text-right">
                                 <div class="text-lg font-extrabold text-third">

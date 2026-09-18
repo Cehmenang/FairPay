@@ -12,7 +12,8 @@ export interface Participant {
 	paidAt: string | null;
 	claimedAt?: string | null;
 	contact: Contact;
-	items?: BillItem[]
+	items?: BillItem[],
+	paymentMethod?: string
 }
 
 export interface Bill {
