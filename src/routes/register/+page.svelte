@@ -20,7 +20,7 @@
     e.preventDefault();
     const data = { username, email, password }
     try{
-      const res = await fetch('http://localhost:3000/user', {
+      const res = await fetch('https://fairback.cehwin.cloud/user', {
           method: 'POST',
           body: JSON.stringify(data),
           credentials: 'include',
