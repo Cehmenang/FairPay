@@ -59,15 +59,31 @@
 		startCamera();
 	}
 
-	function onFilePicked(e: Event) {
-		const file = (e.target as HTMLInputElement).files?.[0];
-		if (!file) return;
-		const reader = new FileReader();
-		reader.onload = () => {
-			capturedImage = reader.result as string;
-			stopCamera();
-		};
-		reader.readAsDataURL(file);
+	async function compressToDataUrl(file: File, maxSide = 1600, quality = 0.75): Promise<string> {
+	const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+	const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+	const w = Math.round(bitmap.width * scale);
+	const h = Math.round(bitmap.height * scale);
+	canvasEl.width = w;
+	canvasEl.height = h;
+	canvasEl.getContext('2d')?.drawImage(bitmap, 0, 0, w, h);
+	bitmap.close();
+	return canvasEl.toDataURL('image/jpeg', quality);
+	}
+
+	async function onFilePicked(e: Event) {
+	const input = e.target as HTMLInputElement;
+	const file = input.files?.[0];
+	if (!file) return;
+	try {
+		capturedImage = await compressToDataUrl(file);
+		stopCamera();
+	} catch (err) {
+		console.error(err);
+		scanError = 'Gagal membaca foto, coba lagi.';
+	} finally {
+		input.value = ''; // supaya bisa pilih file yang sama lagi
+	}
 	}
 
 	async function submitScan() {
