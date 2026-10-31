@@ -2,22 +2,6 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { GROQ_API, GROQ_URL } from '$env/static/private';
 
-const MAX_RETRIES = 2;
-
-const SYSTEM_PROMPT = `OCR struk belanja. Balas HANYA JSON murni (tanpa markdown, tanpa penjelasan):
-{"isReceipt":bool,"title":string|null,"currency":string|null,"items":[{"name":string,"qty":number,"unitPrice":number,"subTotal":number}],"grossAmount":number|null,"tax":number|null,"note":string|null}
-
-Angka murni, tanpa simbol/titik ribuan.
-
-Aturan:
-- Bukan struk (orang/dokumen lain) -> isReceipt=false, field lain null/[], note=alasan singkat.
-- title=nama toko. currency=ISO 4217 dari petunjuk di struk (bahasa/simbol/format/nama toko), default "IDR" jika tak ada petunjuk.
-- items: gabung baris duplikat (jumlah qty). unitPrice=harga satuan (hitung mundur dari subtotal/qty jika perlu). subTotal=qty*unitPrice. Skip baris subtotal/pajak/diskon/service charge.
-- grossAmount=total sebelum pajak (baris Subtotal, atau jumlah subTotal item).
-- tax=nominal pajak/PPN/VAT, null jika tak ada.
-- note=null jika jelas; isi singkat jika ada bagian buram/tebakan. Jangan skip item karena buram — tebak.
-- Jangan mengarang item. Selalu keluarkan JSON lengkap walau harus menebak.`
-
 export const POST: RequestHandler = async ({ request }) => {
 	const { file } = await request.json();
 

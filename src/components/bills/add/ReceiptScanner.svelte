@@ -2,6 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import { Camera, RotateCcw, ScanLine, Upload, Loader2, AlertTriangle } from 'lucide-svelte';
 	import type { ScanResult } from '$lib/types/billDraft';
+    import { PUBLIC_SERVER_API } from '$env/static/public';
 
 	let { onScanned }: { onScanned: (result: ScanResult) => void } = $props();
 
@@ -16,6 +17,7 @@
 	let scanning = $state(false);
 	let scanError = $state<string | null>(null);
 	let notReceiptNote = $state<string | null>(null);
+	let rawFile = $state<File | null>(null)
 
 	async function startCamera() {
 		cameraError = null;
@@ -73,8 +75,10 @@
 
 	async function onFilePicked(e: Event) {
 	const input = e.target as HTMLInputElement;
-	const file = input.files?.[0];
+	const file = input.files?.[0];	
 	if (!file) return;
+	rawFile = file
+
 	try {
 		capturedImage = await compressToDataUrl(file);
 		stopCamera();
@@ -87,15 +91,17 @@
 	}
 
 	async function submitScan() {
-		if (!capturedImage) return;
+		if (!capturedImage && !rawFile) return;
 		scanning = true;
 		scanError = null;
 		notReceiptNote = null;
+		const formData = new FormData()
+		formData.append('file', rawFile!)
+
 		try {
-			const res = await fetch('/api/groq', {
+			const res = await fetch(`${PUBLIC_SERVER_API}/bill/scan`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ file: capturedImage })
+				body: formData
 			});
 			if (!res.ok) {
 				const body = await res.json().catch(() => ({}));
