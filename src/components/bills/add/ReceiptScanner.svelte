@@ -101,7 +101,8 @@
 		try {
 			const res = await fetch(`${PUBLIC_SERVER_API}/bill/scan`, {
 				method: 'POST',
-				body: formData
+				body: formData,
+				credentials: 'include'
 			});
 			if (!res.ok) {
 				const body = await res.json().catch(() => ({}));
